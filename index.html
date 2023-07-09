@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Hotel Registration Form</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+
+</head>
+<body>
+    <div class="Container">
+     <form id="bookingForm">
+       <h2>Hotel Booking Registration Form</h2>
+          <div class="content">
+            <div class="form-group">
+              <label for="customerName">Customer Name:</label>
+              <input type="text" id="customerName" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="checkinDate">Check-in Date:</label>
+              <input type="date" id="checkinDate" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="totalDays">Total No of Days:</label>
+              <input type="number" id="totalDays" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="totalPersons">Total No of Persons:</label>
+              <input type="number" id="totalPersons" required>
+            </div>
+  
+    <div class="form-group">
+      <label for="roomType">Room Type:</label>
+      <select id="roomType">
+        <option value="delux">Delux Room</option>
+        <option value="suite">Suite Room</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="amenities">Amenities:</label>
+      <select id="amenities">
+        <option value="ac">AC</option>
+        <option value="locker">Locker</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="advanceAmount">Advance Amount:</label>
+      <input type="number" id="advanceAmount" required>
+    </div>
+    <div class="form-group">
+      <label for="extraPersons">Extra Persons:</label>
+      <input type="number" id="extraPersons">
+    </div>
+    
+    <div class="form-group">
+      <label for="balance">Balance:</label>
+      <input type="number" id="balance" disabled>
+    </div>
+  
+    <div class="form-group">
+      <label for="roomCost">Total Room Cost:</label>
+      <input type="number" id="roomCost" disabled>
+    </div>
+    <div class="form-group">
+      <label for="amenitiesCost">Total Amenities Cost:</label>
+      <input type="number" id="amenitiesCost" disabled>
+    </div>
+    <div class="form-group">
+      <label for="totalCost">Total Cost:</label>
+      <input type="number" id="totalCost" disabled>
+    </div>
+    
+    <div class="button-container"> 
+    <button type="submit">Submit</button>
+    </div>
+   
+  </div>
+  </form>
+</div> 
+
+
+<script>
+
+  function calculateCost() {
+    const roomRate = {
+      delux: 2500,
+      suite: 4000
+    };
+
+    const amenitiesCost = {
+      ac: 1000,
+      locker: 300
+    };
+
+    const customerName = document.getElementById('customerName').value;
+    const checkinDate = document.getElementById('checkinDate').value;
+    const totalDays = parseInt(document.getElementById('totalDays').value);
+    const totalPersons = parseInt(document.getElementById('totalPersons').value);
+    const roomType = document.getElementById('roomType').value;
+    const amenities = document.getElementById('amenities').value;
+    const advanceAmount = parseInt(document.getElementById('advanceAmount').value);
+    const extraPersons = parseInt(document.getElementById('extraPersons').value) || 0;
+
+    const roomCost = roomRate[roomType] * totalDays;
+    const amenitiesCostTotal = amenitiesCost[amenities] * totalDays;
+    const totalCost = roomCost + amenitiesCostTotal + (extraPersons * 1000);
+    const balance = totalCost - advanceAmount;
+
+    document.getElementById('roomCost').value = roomCost;
+    document.getElementById('amenitiesCost').value = amenitiesCostTotal;
+    document.getElementById('totalCost').value = totalCost;
+    document.getElementById('balance').value = balance;
+  }
+
+
+  document.getElementById('bookingForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    calculateCost();
+  });
+</script> 
+
+</body>
+</html>
+
+
+
+ 
